@@ -2,17 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
-audit_parser.py
-
+showaudit.py
 
 This script analyzes .audit files in XML format and outputs the contained information.
 It supports reading multiple files through the -a or --audit parameters.
 
 Usage:
-    python3 audit_parser.py -a file1.audit file2.audit
-    python3 audit_parser.py --audit file1.audit file2.audit
-    python3 audit_parser.py -h
-    python3 audit_parser.py --help
+    python3 showaudit.py -a file1.audit file2.audit
+    python3 showaudit.py --audit file1.audit file2.audit
+    python3 showaudit.py -h
+    python3 showaudit.py --help
 
 Robert Tulke, rt@debian.sh, 2021-09-26
 """
@@ -22,7 +21,6 @@ import xml.etree.ElementTree as ET
 import sys
 import os
 
-# Function to parse the .audit file
 def parse_audit(file_path):
     if not os.path.isfile(file_path):
         print(f"File not found: {file_path}")
@@ -31,8 +29,9 @@ def parse_audit(file_path):
     try:
         tree = ET.parse(file_path)
         root = tree.getroot()
-    except ET.ParseError:
+    except ET.ParseError as e:
         print(f"Invalid XML format: {file_path}")
+        print(f"Error details: {e}")
         return
     except Exception as e:
         print(f"Error processing file {file_path}: {e}")
