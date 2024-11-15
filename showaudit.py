@@ -4,6 +4,7 @@
 """
 audit_parser.py
 
+
 This script analyzes .audit files in XML format and outputs the contained information.
 It supports reading multiple files through the -a or --audit parameters.
 
@@ -12,6 +13,8 @@ Usage:
     python3 audit_parser.py --audit file1.audit file2.audit
     python3 audit_parser.py -h
     python3 audit_parser.py --help
+
+Robert Tulke, rt@debian.sh, 2021-09-26
 """
 
 import argparse
@@ -19,6 +22,7 @@ import xml.etree.ElementTree as ET
 import sys
 import os
 
+# Function to parse the .audit file
 def parse_audit(file_path):
     if not os.path.isfile(file_path):
         print(f"File not found: {file_path}")
@@ -64,6 +68,7 @@ def parse_audit(file_path):
         print("=" * 50)
 
 def main():
+    # Parse command line arguments
     parser = argparse.ArgumentParser(
         description="Analyze .audit files in XML format and output the contained information."
     )
@@ -77,7 +82,8 @@ def main():
     args = parser.parse_args()
 
     audit_files = args.audit
-
+    
+    # Iterate over each audit file
     for audit_file in audit_files:
         parse_audit(audit_file)
 
